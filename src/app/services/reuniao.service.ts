@@ -2,13 +2,14 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs';
-import { Reuniao } from '../models/reuniao';
+import { Reuniao } from '../models/reuniao.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReuniaoService {
-  url = 'http://localhost:8080/reuniao';
+  private url = environment.api;
 
   constructor(private httpClient: HttpClient) {}
 
@@ -21,7 +22,7 @@ export class ReuniaoService {
   }
 
   getReunioesById(id: number): Observable<Reuniao> {
-    return this.httpClient.get<Reuniao>(this.url + '/' + id).pipe(retry(2), catchError(this.handleError));
+    return this.httpClient.get<Reuniao>(this.url + '/reuniao/' + id).pipe(retry(2), catchError(this.handleError));
   }
 
   saveReuniao(reuniao: Reuniao): Observable<Reuniao> {

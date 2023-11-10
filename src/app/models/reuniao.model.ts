@@ -1,5 +1,5 @@
 export interface Reuniao {
-    idReuniao: string;
+    idReuniao?: string;
     assuntoReuniao: string;
     descricaoReuniao: string;
     observacoes: string;

@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Reuniao } from './models/reuniao.model';
+import { ReuniaoService } from './services/reuniao.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'projeto_begosso_front';
+  reunioes$ = new Observable<Reuniao[]>();
+
+  constructor(private reuniaoService: ReuniaoService) {
+    this.obterReunioesCadastradas();
+  }
+
+  obterReunioesCadastradas(){
+    // this.reuniaoService.getReunioes().subscribe(reunioes => this.reunioes = reunioes);
+    this.reunioes$ = this.reuniaoService.getReunioes();
+  }
 }
